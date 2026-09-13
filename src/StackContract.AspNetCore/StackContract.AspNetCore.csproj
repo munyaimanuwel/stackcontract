@@ -21,7 +21,7 @@
     <PackageId>StackContract.AspNetCore</PackageId>
     <RootNamespace>StackContract.AspNetCore</RootNamespace>
     <AssemblyName>StackContract.AspNetCore</AssemblyName>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>Manuwel Munyai</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/munyaimanuwel/stackcontract</RepositoryUrl>
@@ -34,10 +34,10 @@
 
 Call `IHostBuilder.UseStackContractKeyCheck` with the keys your app must have (for example ConnectionStrings__Default). A hosted service reads IConfiguration at StartAsync; missing or whitespace-only values log ENV_REQUIRED_MISSING and throw InvalidOperationException so the process does not stay up half-configured. Complements Microsoft.Extensions.Options.ValidateOnStart — it checks key presence, not options binding.
 
-This package does not read Docker Compose or .env files. Use the `stackcontract` global tool in CI for compose/env contracts. Internals (StackContract.Core) are bundled; you do not need a separate Core package.
+This package does not read Docker Compose or .env files. Use the `stackcontract` global tool in CI for compose/env/appsettings contracts. Internals (StackContract.Core) are bundled; you do not need a separate Core package.
 
 MIT licensed. Not affiliated with Docker, Inc. Repo: https://github.com/munyaimanuwel/stackcontract</Description>
-    <PackageReleaseNotes>0.1.1: Detailed package description and README. Bundles StackContract.Core so that library is not a separate NuGet dependency.</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.2: Align version with CLI. Tool now validates appsettings config paths; this host check is unchanged.</PackageReleaseNotes>
   </PropertyGroup>
   <Target Name="IncludeReferencedProjectsInPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
     <ItemGroup>
