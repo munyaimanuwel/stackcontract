@@ -37,7 +37,7 @@ Call `IHostBuilder.UseStackContractKeyCheck` with the keys your app must have (f
 This package does not read Docker Compose or .env files. Use the `stackcontract` global tool in CI for compose/env/appsettings contracts. Internals (StackContract.Core) are bundled; you do not need a separate Core package.
 
 MIT licensed. Not affiliated with Docker, Inc. Repo: https://github.com/munyaimanuwel/stackcontract</Description>
-    <PackageReleaseNotes>0.1.2: Align version with CLI. Tool now validates appsettings config paths; this host check is unchanged.</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.2: Align version with CLI appsettings engine release. Bundles StackContract.Core; use stackcontract CLI for compose/appsettings contract checks in CI.</PackageReleaseNotes>
   </PropertyGroup>
   <Target Name="IncludeReferencedProjectsInPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
     <ItemGroup>
