@@ -1,3 +1,4 @@
+using StackContract.AppSettings;
 using StackContract.Core;
 using StackContract.Engine;
 using StackContract.Env;
@@ -146,5 +147,49 @@ public class ValidationTests
         Assert.Contains("FOO", env.Keys);
         Assert.Contains("BAZ", env.Keys);
         Assert.Equal(2, env.Keys.Count);
+    }
+
+    [Fact]
+    public void Missing_required_config_path_returns_CONFIG_PATH_MISSING()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), "sc-" + Guid.NewGuid().ToString("n"));
+        CopyFixture("missing-config", dir);
+        var report = new ContractValidator().Validate(new ValidationOptions
+        {
+            WorkingDirectory = dir,
+            ContractPath = "stackcontract.yml"
+        });
+        Assert.Contains(report.Findings, f => f.Code == FindingCodes.ConfigPathMissing && f.Severity == Severity.Error);
+        Assert.DoesNotContain(report.Findings, f => f.Code == FindingCodes.ComposeParse || f.Code == FindingCodes.SvcMissing);
+        Assert.True(report.HasErrors);
+    }
+
+    [Fact]
+    public void Appsettings_environment_overlay_satisfies_required_paths_without_compose()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), "sc-" + Guid.NewGuid().ToString("n"));
+        CopyFixture("appsettings-ok", dir);
+        var report = new ContractValidator().Validate(new ValidationOptions
+        {
+            WorkingDirectory = dir,
+            ContractPath = "stackcontract.yml",
+            Environment = "Development"
+        });
+        Assert.False(report.HasErrors, ReportFormatter.FormatText(report));
+        Assert.DoesNotContain(report.Findings, f => f.Code == FindingCodes.ComposeParse || f.Code == FindingCodes.SvcMissing);
+    }
+
+    [Fact]
+    public void AppSettings_parser_keeps_paths_only_not_values()
+    {
+        var file = AppSettingsParser.Parse("""{"ConnectionStrings":{"Default":"Host=localhost;Password=s3cret"}}""");
+        Assert.Contains("ConnectionStrings:Default", file.Paths);
+        Assert.DoesNotContain("s3cret", string.Join(',', file.Paths));
+    }
+
+    [Fact]
+    public void ConfigPath_normalize_accepts_double_underscore_alias()
+    {
+        Assert.Equal("ConnectionStrings:Default", ConfigPath.Normalize("ConnectionStrings__Default"));
     }
 }
