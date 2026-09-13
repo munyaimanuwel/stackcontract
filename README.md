@@ -2,9 +2,11 @@
 
 [![NuGet](https://img.shields.io/nuget/v/stackcontract.svg)](https://www.nuget.org/packages/stackcontract)
 
-Local-first **.NET stack/config contract checker**. Catch missing services and env keys before runtime — no Docker daemon required for `validate`.
+Local-first **.NET stack/config contract checker**. Catch missing config paths, services, and env keys before runtime — **no Docker daemon required** for `validate`.
 
-Not affiliated with Docker, Inc. Referential mentions of Docker Compose in prose describe the compose-file format this tool reads.
+Compose is **optional**. Plain C# / ASP.NET apps can validate against `appsettings.json` (+ `appsettings.{Environment}.json`) alone.
+
+Not affiliated with Docker, Inc. Referential mentions of Docker Compose describe the compose-file format this tool can also read.
 
 MIT licensed. Open-core: the engine stays free forever with **zero network** in Core/Engine.
 
@@ -14,11 +16,25 @@ MIT licensed. Open-core: the engine stays free forever with **zero network** in 
 - Contract file: `composecontract.yml` → `stackcontract.yml` (legacy `composecontract.yml` still accepted as a deprecated alias when the new default is missing)
 - Packages / namespaces: `ComposeContract.*` → `StackContract.*`
 
-## 5-minute path
+## 5-minute path (appsettings, no Docker)
 
 ```bash
 # requires .NET 8 SDK
 dotnet tool install -g stackcontract
+cd samples/aspnet-appsettings
+stackcontract validate --environment Development --strict
+```
+
+Or discover a contract from appsettings:
+
+```bash
+stackcontract init --appsettings appsettings.json --environment Development --force
+stackcontract validate --environment Development --strict
+```
+
+## 5-minute path (Compose + .env)
+
+```bash
 cd samples/aspnet-compose
 stackcontract init --compose compose.yml --force
 stackcontract validate --strict
@@ -29,14 +45,14 @@ Exit codes: `0` ok/warns · `1` any error · `2` usage/parse. Use `--strict` in 
 ## CLI
 
 ```
-stackcontract init [--compose PATH] [--override PATH] [--options ASSEMBLY] [--force]
-stackcontract validate [--contract PATH] [--profile NAME]* [--env-example PATH] [--env-local PATH] [--format text|json] [--strict]
+stackcontract init [--compose PATH] [--override PATH] [--appsettings PATH] [--environment NAME] [--options ASSEMBLY] [--force]
+stackcontract validate [--contract PATH] [--profile NAME]* [--env-example PATH] [--env-local PATH] [--environment NAME] [--format text|json] [--strict]
 stackcontract version
 ```
 
-Finding codes: `SVC_MISSING`, `ENV_REQUIRED_MISSING`, `ENV_OPTIONAL_MISSING`, `ENV_EXAMPLE_UNKNOWN`, `COMPOSE_PARSE`, `CONTRACT_INVALID`, `PROFILE_UNKNOWN`.
+Finding codes: `SVC_MISSING`, `ENV_REQUIRED_MISSING`, `ENV_OPTIONAL_MISSING`, `ENV_EXAMPLE_UNKNOWN`, `CONFIG_PATH_MISSING`, `CONFIG_PATH_OPTIONAL_MISSING`, `CONFIG_PARSE`, `COMPOSE_PARSE`, `CONTRACT_INVALID`, `PROFILE_UNKNOWN`.
 
-Local `.env` is checked for **key presence only** — values never appear in text or JSON reports.
+Local `.env` and appsettings are checked for **key/path presence only** — values never appear in text or JSON reports.
 
 ## AspNetCore
 

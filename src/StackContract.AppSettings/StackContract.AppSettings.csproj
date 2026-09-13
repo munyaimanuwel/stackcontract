@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>StackContract.AppSettings</PackageId>
+    <RootNamespace>StackContract.AppSettings</RootNamespace>
+    <AssemblyName>StackContract.AppSettings</AssemblyName>
+    <Version>0.1.0</Version>
+    <Authors>Manuwel Munyai</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/munyaimanuwel/stackcontract</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/munyaimanuwel/stackcontract</PackageProjectUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>

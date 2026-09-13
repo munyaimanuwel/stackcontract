@@ -1,0 +1,28 @@
+version: 1
+project: {}
+config:
+  file: appsettings.json
+  environment: Development
+profiles:
+  default: []
+rules:
+  services:
+    required: []
+  env:
+    required: []
+    optional: []
+  config:
+    required:
+      - ConnectionStrings:Default
+    optional:
+      - FeatureFlags:EnableBeta
+  options:
+    assemblies: []
+    types: []
+severity:
+  missing_service: error
+  missing_env_required: error
+  missing_env_optional: warn
+  unknown_env_in_example: warn
+  missing_config_required: error
+  missing_config_optional: warn

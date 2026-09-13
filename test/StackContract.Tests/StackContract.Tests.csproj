@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\src\StackContract.Core\StackContract.Core.csproj" />
     <ProjectReference Include="..\..\src\StackContract.Compose\StackContract.Compose.csproj" />
     <ProjectReference Include="..\..\src\StackContract.Env\StackContract.Env.csproj" />
+    <ProjectReference Include="..\..\src\StackContract.AppSettings\StackContract.AppSettings.csproj" />
     <ProjectReference Include="..\..\src\StackContract.Options\StackContract.Options.csproj" />
     <ProjectReference Include="..\..\src\StackContract.Engine\StackContract.Engine.csproj" />
     <ProjectReference Include="..\..\src\StackContract.Cli\StackContract.Cli.csproj" />
