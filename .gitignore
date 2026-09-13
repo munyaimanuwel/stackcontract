@@ -11,3 +11,4 @@ TestResults/
 release/
 .env
 docs/PUBLICIZE-CHECKLIST.md
+/.commandcode/taste
