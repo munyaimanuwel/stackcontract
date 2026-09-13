@@ -3,6 +3,7 @@
     <ProjectReference Include="..\StackContract.Core\StackContract.Core.csproj" />
     <ProjectReference Include="..\StackContract.Compose\StackContract.Compose.csproj" />
     <ProjectReference Include="..\StackContract.Env\StackContract.Env.csproj" />
+    <ProjectReference Include="..\StackContract.AppSettings\StackContract.AppSettings.csproj" />
     <ProjectReference Include="..\StackContract.Options\StackContract.Options.csproj" />
   </ItemGroup>
   <PropertyGroup>
